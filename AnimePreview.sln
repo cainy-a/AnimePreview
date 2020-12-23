@@ -1,0 +1,31 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 16
+VisualStudioVersion = 16.0.30717.126
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AnimePreview", "AnimePreview\AnimePreview.csproj", "{1B8FCDFE-21D2-4C07-BAE9-81C542C9E913}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AnilistApi", "AnilistApi\AnilistApi.csproj", "{CBFFA36D-59B8-4FBE-BC26-C4CA7DE93EF8}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{1B8FCDFE-21D2-4C07-BAE9-81C542C9E913}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{1B8FCDFE-21D2-4C07-BAE9-81C542C9E913}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{1B8FCDFE-21D2-4C07-BAE9-81C542C9E913}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{1B8FCDFE-21D2-4C07-BAE9-81C542C9E913}.Release|Any CPU.Build.0 = Release|Any CPU
+		{CBFFA36D-59B8-4FBE-BC26-C4CA7DE93EF8}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{CBFFA36D-59B8-4FBE-BC26-C4CA7DE93EF8}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{CBFFA36D-59B8-4FBE-BC26-C4CA7DE93EF8}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{CBFFA36D-59B8-4FBE-BC26-C4CA7DE93EF8}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {4D1E215B-7ED1-4823-AF6D-5FB4DC90E7A1}
+	EndGlobalSection
+EndGlobal

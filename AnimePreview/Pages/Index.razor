@@ -1,0 +1,116 @@
+﻿@page "/"
+
+<h1 class="ui header">Anime Preview: Nice previews for Anilist</h1>
+<h2>Explanation</h2>
+<p>
+	Anilist includes nice image previews for animes, users, etc., however they don't give them to users directly.
+	These previews can be seen, as an example, if you paste a link into Discord.
+	This tool gets those images back for you.
+	<br />
+	MyAnimeList and Kitsu support (possibly) coming soon&trade;
+</p>
+<p>
+	Goddamnit I wrote my own API client for this why do I put so much effort into random projects?????
+</p>
+
+<div class="ui input">
+	<input @onchange="@(i => { InputLinkChanged(i.Value.ToString()); })" placeholder="Enter link here" type="text">
+</div>
+
+<button @onclick="@GetLink" class="ui button">Get Image</button>
+
+<img class="ui image" src="@ImgLink" style="width: 600px; margin: 1rem 0; @(string.IsNullOrEmpty(ImgLink) ? "display: none" : string.Empty)" />
+
+<div class="ui fluid card" style="-moz-filter: invert(85%); -webkit-filter: invert(85%); filter: invert(85%); @(string.IsNullOrEmpty(ImgLink) ? "display: none" : string.Empty)">
+	<div class="content">
+		<div class="description">
+			<code style="font-family: 'Jetbrains Mono', monospace">
+				@ImgLink
+			</code>
+		</div>
+	</div>
+</div>
+
+@code{
+	public string ImgLink = string.Empty;
+
+	public string InputLink;
+
+	public void InputLinkChanged(string newValue) => InputLink = newValue;
+
+	public async Task GetLink()
+	{
+		if (string.IsNullOrWhiteSpace(InputLink)) return;
+		var parsed = ParseLink(InputLink, out _, out var valid);
+		switch (parsed.MediaType)
+		{
+			case MediaTypes.Anime:
+			case MediaTypes.Manga:
+				ImgLink = BuildMediaLink(parsed.Id.Value);
+				break;
+			case MediaTypes.User:
+				ImgLink = await BuildUserLink(parsed.IdString);
+				break;
+		}
+	}
+
+	public string BuildMediaLink(int Id) => $"https://img.anili.st/media/{Id}";
+
+	public async Task<string> BuildUserLink(string username)
+	{
+		var client = new AnilistApi.Client();
+		var id = await client.GetUserIdByUsername(username);
+
+		return $"https://img.anili.st/user/{id}";
+	}
+
+	public Item ParseLink(string linkToValidate, out string[] splitLink, out bool valid)
+	{
+		valid = true;
+		string httpRemoved = string.Empty;
+		if (linkToValidate.StartsWith("http://")) httpRemoved = linkToValidate.Remove(0, 7);
+		else if (linkToValidate.StartsWith("https://")) httpRemoved = linkToValidate.Remove(0, 8);
+		else valid = false;
+
+		splitLink = httpRemoved.Split('/').ToArray();
+
+		if (splitLink[0] == "anilist.co")
+		{
+			var item = new Item { Site = Sites.Anilist };
+
+			switch (splitLink[1])
+			{
+				case "anime":
+					item.MediaType = MediaTypes.Anime;
+					valid = int.TryParse(splitLink[2], out var animeId);
+					item.Id = animeId;
+					item.IdString = splitLink[2];
+					break;
+				case "manga":
+					item.MediaType = MediaTypes.Manga;
+					valid = int.TryParse(splitLink[2], out var mangaId);
+					item.Id = mangaId;
+					item.IdString = splitLink[2];
+					break;
+				case "user":
+					item.MediaType = MediaTypes.User;
+					item.IdString = splitLink[2];
+					break;
+			}
+			return item;
+		}
+		else valid = false;
+
+		return null;
+	}
+
+	public class Item
+	{
+		public Sites Site;
+		public MediaTypes MediaType;
+		public int? Id;
+		public string IdString;
+	}
+	public enum Sites { Anilist, Kitsu, Mal }
+	public enum MediaTypes { Anime, Manga, User }
+}
