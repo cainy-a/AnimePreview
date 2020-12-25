@@ -15,4 +15,10 @@
     <None Remove="wwwroot\css\open-iconic\**" />
   </ItemGroup>
 
+  <ItemGroup>
+    <Reference Include="Anilist4Net">
+      <HintPath>..\Anilist4Net\Anilist4Net.dll</HintPath>
+    </Reference>
+  </ItemGroup>
+
 </Project>
