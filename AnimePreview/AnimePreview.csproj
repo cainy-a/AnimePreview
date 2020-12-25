@@ -5,15 +5,14 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <None Include="wwwroot\css\bootstrap\bootstrap.min.css.map" />
-    <None Include="wwwroot\css\open-iconic\FONT-LICENSE" />
-    <None Include="wwwroot\css\open-iconic\font\fonts\open-iconic.svg" />
-    <None Include="wwwroot\css\open-iconic\ICON-LICENSE" />
-    <None Include="wwwroot\css\open-iconic\README.md" />
-  </ItemGroup>
-
-  <ItemGroup>
-    <ProjectReference Include="..\AnilistApi\AnilistApi.csproj" />
+    <Compile Remove="wwwroot\css\bootstrap\**" />
+    <Compile Remove="wwwroot\css\open-iconic\**" />
+    <Content Remove="wwwroot\css\bootstrap\**" />
+    <Content Remove="wwwroot\css\open-iconic\**" />
+    <EmbeddedResource Remove="wwwroot\css\bootstrap\**" />
+    <EmbeddedResource Remove="wwwroot\css\open-iconic\**" />
+    <None Remove="wwwroot\css\bootstrap\**" />
+    <None Remove="wwwroot\css\open-iconic\**" />
   </ItemGroup>
 
 </Project>
