@@ -15,4 +15,8 @@
     <None Remove="wwwroot\css\open-iconic\**" />
   </ItemGroup>
 
+  <ItemGroup>
+    <ProjectReference Include="..\..\Anilist4Net\Anilist4Net\Anilist4Net.csproj" />
+  </ItemGroup>
+
 </Project>

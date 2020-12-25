@@ -1,4 +1,5 @@
 ﻿@page "/"
+@using Anilist4Net
 
 <h1 class="ui header">Anime Preview: Nice previews for Anilist</h1>
 <h2>Explanation</h2>
@@ -58,8 +59,9 @@
 
 	public async Task<string> BuildUserLink(string username)
 	{
-		var client = new AnilistApi.Client();
-		var id = await client.GetUserIdByUsername(username);
+		var client = new Client();
+		var user = await client.GetUserByName(username);
+		var id = user.Id;
 
 		return $"https://img.anili.st/user/{id}";
 	}
