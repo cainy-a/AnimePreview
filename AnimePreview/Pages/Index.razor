@@ -47,7 +47,8 @@
 		{
 			case MediaTypes.Anime:
 			case MediaTypes.Manga:
-				ImgLink = BuildMediaLink(parsed.Id.Value);
+				if (parsed.Site == Sites.Anilist) ImgLink = BuildMediaLink(parsed.Id.Value);
+				else if (parsed.Site == Sites.Mal) ImgLink = BuildMediaLink((await new Client().GetMediaByMalId(parsed.Id.Value)).Id);
 				break;
 			case MediaTypes.User:
 				ImgLink = await BuildUserLink(parsed.IdString);
@@ -76,7 +77,7 @@
 
 		splitLink = httpRemoved.Split('/').ToArray();
 
-		if (splitLink[0] == "anilist.co")
+		if (splitLink[0].ToLower() == "anilist.co")
 		{
 			var item = new Item { Site = Sites.Anilist };
 
@@ -96,6 +97,27 @@
 					break;
 				case "user":
 					item.MediaType = MediaTypes.User;
+					item.IdString = splitLink[2];
+					break;
+			}
+			return item;
+		}
+		else if (splitLink[0].ToLower() == "myanimelist.net")
+		{
+			var item = new Item { Site = Sites.Mal };
+
+			switch (splitLink[1])
+			{
+				case "anime":
+					item.MediaType = MediaTypes.Anime;
+					valid = int.TryParse(splitLink[2], out var animeId);
+					item.Id = animeId;
+					item.IdString = splitLink[2];
+					break;
+				case "manga":
+					item.MediaType = MediaTypes.Manga;
+					valid = int.TryParse(splitLink[2], out var mangaId);
+					item.Id = mangaId;
 					item.IdString = splitLink[2];
 					break;
 			}
