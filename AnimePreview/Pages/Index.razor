@@ -72,7 +72,7 @@
 		string httpRemoved = string.Empty;
 		if (linkToValidate.StartsWith("http://")) httpRemoved = linkToValidate.Remove(0, 7);
 		else if (linkToValidate.StartsWith("https://")) httpRemoved = linkToValidate.Remove(0, 8);
-		else valid = false;
+		else httpRemoved = linkToValidate;
 
 		splitLink = httpRemoved.Split('/').ToArray();
 
