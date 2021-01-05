@@ -1,9 +1,7 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk.Web">
-
   <PropertyGroup>
     <TargetFramework>netcoreapp3.1</TargetFramework>
   </PropertyGroup>
-
   <ItemGroup>
     <Compile Remove="wwwroot\css\bootstrap\**" />
     <Compile Remove="wwwroot\css\open-iconic\**" />
@@ -14,11 +12,17 @@
     <None Remove="wwwroot\css\bootstrap\**" />
     <None Remove="wwwroot\css\open-iconic\**" />
   </ItemGroup>
-
   <ItemGroup>
     <Reference Include="Anilist4Net">
       <HintPath>..\Anilist4Net\Anilist4Net.dll</HintPath>
     </Reference>
   </ItemGroup>
-
+  <ItemGroup>
+    <PackageReference Include="ElectronNET.API" Version="9.31.2" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Update="electron.manifest.json">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+  </ItemGroup>
 </Project>

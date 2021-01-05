@@ -1,3 +1,5 @@
+using System.Threading.Tasks;
+using ElectronNET.API;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Configuration;
@@ -47,6 +49,9 @@ namespace AnimePreview
 				endpoints.MapBlazorHub();
 				endpoints.MapFallbackToPage("/_Host");
 			});
+
+			// Opens an Electron window
+			Task.Run(async () => await Electron.WindowManager.CreateWindowAsync());
 		}
 	}
 }
