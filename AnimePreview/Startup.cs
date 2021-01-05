@@ -1,5 +1,6 @@
 using System.Threading.Tasks;
 using ElectronNET.API;
+using ElectronNET.API.Entities;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Configuration;
@@ -51,7 +52,10 @@ namespace AnimePreview
 			});
 
 			// Opens an Electron window
-			Task.Run(async () => await Electron.WindowManager.CreateWindowAsync());
+			Task.Run(async () => await Electron.WindowManager.CreateWindowAsync(new BrowserWindowOptions
+			{
+				AutoHideMenuBar = true
+			}));
 		}
 	}
 }
